@@ -35,8 +35,37 @@ class AchievementInline(admin.StackedInline):
     extra = 0
 
 
-class AcademicAdmin(students_admin.StudentAdmin):
+class AcademicAdmin(admin.ModelAdmin):
     """ Administration for academic.
+    """
+
+    list_display = (
+            'id',
+            'student',
+            'section',
+            'entered',
+            'left',
+            'leaving_reason',
+            )
+
+    list_filter = (
+            'leaving_reason',
+            'section',
+            )
+
+    search_fields = (
+            'id',
+            'student__first_name',
+            'student__last_name',
+            'student__old_last_name',
+            'entered',
+            'left',
+            'section__title',
+            )
+
+
+class StudentAdmin(students_admin.StudentAdmin):
+    """ Administration for student, who is also an academic.
     """
 
     inlines = students_admin.StudentAdmin.inlines + [
@@ -46,5 +75,6 @@ class AcademicAdmin(students_admin.StudentAdmin):
 
 
 admin.site.unregister(students_models.Student)
-admin.site.register(students_models.Student, AcademicAdmin)
+admin.site.register(students_models.Student, StudentAdmin)
 admin.site.register(models.Section, SectionAdmin)
+admin.site.register(models.Academic, AcademicAdmin)
