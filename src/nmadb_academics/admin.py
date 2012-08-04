@@ -103,6 +103,11 @@ class AchievementAdmin(utils.ModelAdmin):
             'competition',
             )
 
+    raw_id_fields = (
+            'student',
+            'academic',
+            )
+
     sheet_mapping = (
             (_(u'ID'), ('id',)),
             (_(u'First name'), ('student', 'first_name',)),
