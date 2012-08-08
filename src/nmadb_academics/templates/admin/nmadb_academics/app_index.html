@@ -1,0 +1,25 @@
+{% extends "admin/index.html" %} 
+{% load i18n %} 
+
+{% block sidebar %}
+<div id="content-related">
+    {% block nmadb-actions %}
+    <div class="module" id="nmadb-actions-module">
+        <h2>{% trans 'NMADB Actions' %}</h2>
+        {% load nmadb_actions %}
+        {% get_nmadb_action_list as actions %}
+        {% if not actions %}
+        <p>{% trans 'None available' %}</p>
+        {% else %}
+        <ul class="actionlist">
+          {% for action in actions %}
+          <li><a href="{{ action.url }}">
+            {{ action.short_description }}
+          </a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-04 15:36+0300\n"
-"PO-Revision-Date: 2012-08-04 15:38+0300\n"
+"POT-Creation-Date: 2012-08-08 20:44+0300\n"
+"PO-Revision-Date: 2012-08-08 20:48+0300\n"
 "Last-Translator: Vytautas Astrauskas <vastrauskas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,59 +17,198 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:68
-#: admin.py:112
+#: admin.py:69
+#: admin.py:113
 msgid "ID"
 msgstr "ID"
 
-#: admin.py:69
-#: admin.py:113
+#: admin.py:70
+#: admin.py:114
+#: forms.py:23
 msgid "First name"
 msgstr "Vardas"
 
-#: admin.py:70
-#: admin.py:114
+#: admin.py:71
+#: admin.py:115
+#: forms.py:24
 msgid "Last name"
 msgstr "Pavardė"
 
-#: admin.py:71
-#: admin.py:115
+#: admin.py:72
+#: admin.py:116
+#: forms.py:29
 msgid "School"
 msgstr "Mokykla"
 
-#: admin.py:72
-#: admin.py:116
+#: admin.py:73
+#: admin.py:117
+#: forms.py:27
 msgid "Class"
 msgstr "Klasė"
 
-#: admin.py:73
-#: admin.py:117
+#: admin.py:74
+#: admin.py:118
+#: forms.py:31
 msgid "Section"
 msgstr "Sekcija"
 
-#: admin.py:74
+#: admin.py:75
+#: forms.py:32
 msgid "Entered"
 msgstr "Įstojo"
 
-#: admin.py:75
+#: admin.py:76
 msgid "Left"
 msgstr "Baigė"
 
-#: admin.py:76
+#: admin.py:77
 msgid "Leaving reason"
 msgstr "Baigimo priežastis"
 
-#: admin.py:118
+#: admin.py:119
 msgid "Competition"
 msgstr "Konkursas"
 
-#: admin.py:119
+#: admin.py:120
 msgid "Competition type"
 msgstr "Konkurso tipas"
 
-#: admin.py:120
+#: admin.py:121
 msgid "Place"
 msgstr "Vieta"
+
+#: admin.py:137
+msgid "Import academics"
+msgstr "Įkelti akademikus"
+
+#: forms.py:25
+msgid "Gender"
+msgstr "Lytis"
+
+#: forms.py:26
+msgid "Birth date"
+msgstr "Gimimo data"
+
+#: forms.py:28
+msgid "School year"
+msgstr "Klasė metai"
+
+#: forms.py:30
+msgid "Socially supported"
+msgstr "Socialiai remtinas"
+
+#: forms.py:33
+msgid "Email address"
+msgstr "El. pašto adresas"
+
+#: forms.py:34
+msgid "Home address"
+msgstr "Namų adresas"
+
+#: forms.py:35
+msgid "Town"
+msgstr "Miestas"
+
+#: forms.py:40
+msgid "School ID"
+msgstr "Mokykla ID"
+
+#: forms.py:41
+msgid "Phone"
+msgstr "Telefonas"
+
+#: forms.py:42
+msgid "Municipality code"
+msgstr "Savivaldybės kodas"
+
+#: forms.py:70
+msgid "Missing column: “{0}”."
+msgstr "Trūksta stulpelio: „{0}“."
+
+#: forms.py:90
+msgid "Unknown gender: “{0}”."
+msgstr "Nežinoma lytis: „{0}“."
+
+#: forms.py:97
+msgid "School not found: “{0}”."
+msgstr "Nerasta mokykla: „{0}“."
+
+#: forms.py:104
+msgid "School ID have to be a number. “{0.title}” ID is {1}. "
+msgstr "Mokyklos ID turi būti skaičius. “{0.title}” ID yra {1}. "
+
+#: forms.py:109
+msgid "School ID does not match. “{0.title}” in DB is {0.id}. In file is {1}"
+msgstr "Mokyklų ID nesutampa. “{0.title}” duombazėje yra {0.id}, o faile: {1}"
+
+#: forms.py:119
+msgid "Section not found: “{0}”."
+msgstr "Nerasta sekcija: „{0}“."
+
+#: forms.py:126
+msgid "Failed to convert to number: “{0}”."
+msgstr "Nepavyko konvertuoti į skaičių: „{0}“."
+
+#: forms.py:132
+msgid "School class have to be between 6 and 12. Now it is {0}."
+msgstr "Mokyklos klasė turi būti tarp 6 ir 12. Dabar yra {0}."
+
+#: forms.py:137
+msgid "School year have to be between 2012 and 2020. Now it is {0}."
+msgstr "Mokyklos metai turi būti tarp 2012 ir 2020. Dabar yra {0}."
+
+#: forms.py:141
+msgid "Home address must be not empty."
+msgstr ""
+
+#: forms.py:144
+msgid "Town must be not empty."
+msgstr ""
+
+#: forms.py:155
+#: forms.py:162
+msgid "Invalid date: “{0}”."
+msgstr ""
+
+#: forms.py:164
+msgid "Yes"
+msgstr "Taip"
+
+#: forms.py:166
+msgid "No"
+msgstr "Ne"
+
+#: forms.py:170
+msgid "Socially supported have to be either “Yes” or “No”. Now it is “{0}”."
+msgstr ""
+
+#: forms.py:184
+msgid "Failed to determine municipality."
+msgstr ""
+
+#: forms.py:188
+msgid "{0} Error occurred in {1} line. Sheet name is {2}."
+msgstr ""
+
+#: forms.py:210
+msgid "Academics"
+msgstr "Akademikai"
+
+#: forms.py:218
+msgid "Spreadsheet document"
+msgstr "Skaičiuoklės dokumentas"
+
+#: forms.py:221
+msgid "Please select spreadsheet file. Required columns are: {0}."
+msgstr "Pasirinkite skaičiuoklės failą. Būtini stulpeliai: {0}."
+
+#: forms.py:224
+msgid "“{0}”"
+msgstr "„{0}“"
+
+#: forms.py:251
+msgid "{0} already exists in database."
+msgstr ""
 
 #: models.py:14
 msgid "title"
@@ -197,4 +336,20 @@ msgstr "pasiekimas"
 #: models.py:151
 msgid "achievements"
 msgstr "pasiekimai"
+
+#: views.py:68
+msgid "{0} academics successfully imported."
+msgstr "{0} sėkmingai įkelti."
+
+#: views.py:79
+msgid "NMADB Academics"
+msgstr "NMADB Akademikai"
+
+#: templates/admin/nmadb_academics/app_index.html:8
+msgid "NMADB Actions"
+msgstr "NMADB veiksmai"
+
+#: templates/admin/nmadb_academics/app_index.html:12
+msgid "None available"
+msgstr "Pasirinkimų nėra"
 
