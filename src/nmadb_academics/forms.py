@@ -219,11 +219,17 @@ class ImportAcademicsForm(forms.Form):
             required=True,
             help_text=_(
                 u'Please select spreadsheet file. '
-                u'Required columns are: {0}.').format(
+                u'Required columns are: {0}.'
+                u'Optional columns are: {1}.').format(
                     u','.join(
                         _(u'\u201c{0}\u201d').format(caption)
                         for caption in
-                        IMPORT_ACADEMICS_REQUIRED_COLUMNS.values()))
+                        IMPORT_ACADEMICS_REQUIRED_COLUMNS.values()),
+                    u','.join(
+                        _(u'\u201c{0}\u201d').format(caption)
+                        for caption in
+                        IMPORT_ACADEMICS_OPTIONAL_COLUMNS.values()),
+                    )
             )
 
     check_duplicates = forms.BooleanField(initial=True)
