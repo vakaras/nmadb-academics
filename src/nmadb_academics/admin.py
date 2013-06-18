@@ -134,7 +134,10 @@ class StudentAdmin(students_admin.StudentAdmin):
     list_per_page = 10
 
 
-actions.register(_(u'Import academics'), 'nmadb-academics-import-academic')
+actions.register(
+        'nmadb-academics-import-academic',
+        _(u'Import academics'),
+        'nmadb-academics-import-academic')
 
 admin.site.unregister(students_models.Student)
 admin.site.register(students_models.Student, StudentAdmin)
