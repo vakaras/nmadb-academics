@@ -1,4 +1,7 @@
+import datetime
+
 from django.contrib import admin
+from django.db import models as django_models
 from django.utils.translation import ugettext as _
 
 from nmadb_academics import models
@@ -6,6 +9,7 @@ from nmadb_students import models as students_models
 from nmadb_students import admin as students_admin
 from nmadb_utils import admin as utils
 from nmadb_utils import actions
+from django_db_utils import utils as db_utils
 
 
 class SectionAdmin(utils.ModelAdmin):
@@ -78,6 +82,187 @@ class AcademicAdmin(utils.ModelAdmin):
             )
 
 
+class AcademicWorkbookProxy(models.Academic):
+    """ Proxy for workbook admin.
+    """
+
+    class Meta:
+        verbose_name = _(u'academic worbook')
+        verbose_name_plural = _(u'academics workbook')
+        proxy = True
+
+class SchoolClassFilter(admin.SimpleListFilter):
+    """ Allows to filter by current student class.
+    """
+
+    title = _(u'current class')
+    parameter_name = 'class'
+
+    def lookups(self, request, model_admin):
+        """ Returns the list from 6 to 13.
+        """
+        return [
+                (unicode(i), unicode(i))
+                for i in range(6, 13)
+                ] + [(u'13', u'older')]
+
+    def queryset(self, request, queryset):
+        """ Returns filtered by current class.
+        """
+
+        try:
+            value = int(self.value())
+        except (TypeError, ValueError):
+            return queryset
+        else:
+            today =  datetime.date.today()
+            if today.month >= 9:
+                year = today.year + 1
+            else:
+                year = today.year
+            if value == 13:
+                return queryset.filter(
+                        student__school_year__lt=(
+                            (year-12) +
+                            django_models.F('student__school_class')
+                            )
+                        )
+            else:
+                return queryset.filter(
+                        student__school_year=(
+                            (year-value) +
+                            django_models.F('student__school_class')
+                            )
+                        )
+
+
+class AcademicStatusFilter(admin.SimpleListFilter):
+    """ Allows to filter by academic status.
+    """
+
+    title = _(u'status')
+    parameter_name = 'status'
+
+    def lookups(self, request, model_admin):
+        """ Returns the list of years.
+        """
+        return models.Academic.LEAVING_REASON + (
+                (u'N', _(u'studies')),
+                )
+
+    def queryset(self, request, queryset):
+        """ Returns filtered by year.
+        """
+        if self.value() is None:
+            return queryset
+        else:
+            if self.value() == u'N':
+                value = None
+            else:
+                value = self.value()
+            return queryset.filter(leaving_reason=value)
+
+
+class YearEnteredFilter(admin.SimpleListFilter):
+    """ Allows to filter by entered year.
+    """
+
+    title = _(u'year entered')
+    parameter_name = 'year_entered'
+
+    def lookups(self, request, model_admin):
+        """ Returns the list of years.
+        """
+        entered = models.Academic.objects.all()
+        first = entered.order_by('entered')[0]
+        last = entered.order_by('-entered')[0]
+        for year in range(first.entered.year, last.entered.year + 1):
+            yield (unicode(year), unicode(year))
+
+    def queryset(self, request, queryset):
+        """ Returns filtered by year.
+        """
+        try:
+            year = int(self.value())
+        except (ValueError, TypeError):
+            return queryset
+        else:
+            from datetime import date
+            return queryset.filter(
+                    student__academic__entered__gte=date(year, 1, 1),
+                    student__academic__entered__lte=date(year, 12, 31),
+                    )
+
+
+class AcademicWorkbookAdmin(utils.ModelAdmin):
+    """ Administration for academic.
+    """
+
+    list_display = (
+            'student',
+            'section',
+            'get_phones',
+            'get_emails',
+            'current_school_class',
+            'entered',
+            'left',
+            'leaving_reason',
+            'current_school',
+            )
+
+    search_fields = (
+            'id',
+            'student__first_name',
+            'student__last_name',
+            'student__old_last_name',
+            'entered',
+            'left',
+            'section__title',
+            'student__schools__title',
+            )
+
+    list_filter = (
+            'section',
+            AcademicStatusFilter,
+            SchoolClassFilter,
+            YearEnteredFilter,
+            )
+
+    list_max_show_all = 100
+    list_per_page = 10
+
+    def current_school_class(self, obj):
+        """ Forwarding to student.
+        """
+        return obj.student.current_school_class()
+
+    def get_phones(self, obj):
+        """ Returns concatenation of all used phone numbers.
+        """
+
+        return db_utils.join(
+                obj.student.phone_set.exclude(used=False),
+                'number')
+    get_phones.short_description = _("Phone numbers")
+
+    def get_emails(self, obj):
+        """ Returns concatenation of all used emails.
+        """
+
+        return db_utils.join(
+                obj.student.email_set.exclude(used=False),
+                'address')
+    get_emails.short_description = _("Email addresses")
+
+    def current_school(self, obj):
+        """ Forwarding to student.
+        """
+
+        return obj.student.current_school().title
+    current_school.short_description = _("current school")
+
+
+
 class AchievementAdmin(utils.ModelAdmin):
     """ Administration for achievement.
     """
@@ -143,4 +328,5 @@ admin.site.unregister(students_models.Student)
 admin.site.register(students_models.Student, StudentAdmin)
 admin.site.register(models.Section, SectionAdmin)
 admin.site.register(models.Academic, AcademicAdmin)
+admin.site.register(AcademicWorkbookProxy, AcademicWorkbookAdmin)
 admin.site.register(models.Achievement, AchievementAdmin)

@@ -48,6 +48,10 @@ class Academic(models.Model):
             (u'W', _(u'withdrew'),),
             (u'R', _(u'removed'),),
             (u'C', _(u'changed'),),
+            (u'U', _(u'unknown')),      # The reason, why academic
+                                        # has left is uknown.
+                                        # Also, his leaving date
+                                        # is unknown too.
             )
 
     student = models.ForeignKey(
