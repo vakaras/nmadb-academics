@@ -189,8 +189,8 @@ class YearEnteredFilter(admin.SimpleListFilter):
         else:
             from datetime import date
             return queryset.filter(
-                    student__academic__entered__gte=date(year, 1, 1),
-                    student__academic__entered__lte=date(year, 12, 31),
+                    entered__gte=date(year, 1, 1),
+                    entered__lte=date(year, 12, 31),
                     )
 
 
