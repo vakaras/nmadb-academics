@@ -87,7 +87,7 @@ class AcademicWorkbookProxy(models.Academic):
     """
 
     class Meta:
-        verbose_name = _(u'academic worbook')
+        verbose_name = _(u'academic workbook')
         verbose_name_plural = _(u'academics workbook')
         proxy = True
 
@@ -104,7 +104,7 @@ class SchoolClassFilter(admin.SimpleListFilter):
         return [
                 (unicode(i), unicode(i))
                 for i in range(6, 13)
-                ] + [(u'13', u'older')]
+                ] + [(u'13', _(u'older'))]
 
     def queryset(self, request, queryset):
         """ Returns filtered by current class.
@@ -235,6 +235,7 @@ class AcademicWorkbookAdmin(utils.ModelAdmin):
         """ Forwarding to student.
         """
         return obj.student.current_school_class()
+    current_school_class.short_description = _(u'Current school class')
 
     def get_phones(self, obj):
         """ Returns concatenation of all used phone numbers.
@@ -260,7 +261,6 @@ class AcademicWorkbookAdmin(utils.ModelAdmin):
 
         return obj.student.current_school().title
     current_school.short_description = _("current school")
-
 
 
 class AchievementAdmin(utils.ModelAdmin):
