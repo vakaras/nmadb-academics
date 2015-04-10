@@ -13,7 +13,7 @@ from nmadb_contacts import models as contacts
 
 @admin.site.admin_view
 @render_to('admin/file-form.html')
-@transaction.commit_on_success
+@transaction.atomic
 def import_academics(request):
     """ Imports academics to NMADB.
     """
